@@ -1,0 +1,12 @@
+{
+  "name": "latent-astronaut",
+  "owner": { "name": "Latent Astronaut", "url": "https://github.com/latentastronaut" },
+  "description": "Skills from Latent Astronaut. One so far: sfx, sound effects made with code.",
+  "plugins": [
+    {
+      "name": "sfx",
+      "source": "./",
+      "description": "Make sound effects with code and put them on the exact frame: hits, risers, whooshes, UI sounds, typing, rain, fire, thunder and more. numpy and scipy only. No keys, no models, no audio files."
+    }
+  ]
+}

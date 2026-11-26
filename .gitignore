@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.pycache/
+.venv/
+.env
+# sounds made while trying the skill in this folder
+/sfx/
+*.wav
+*.mp3
+.DS_Store

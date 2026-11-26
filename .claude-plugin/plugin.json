@@ -1,0 +1,11 @@
+{
+  "name": "sfx",
+  "displayName": "SFX",
+  "version": "0.1.0",
+  "description": "Make sound effects with code and put them on the exact frame: hits, risers, whooshes, UI sounds, typing, rain, fire, thunder and more. numpy and scipy only. No keys, no models, no audio files.",
+  "author": { "name": "Latent Astronaut", "url": "https://github.com/latentastronaut" },
+  "homepage": "https://github.com/latentastronaut/la-sfx-skill",
+  "repository": "https://github.com/latentastronaut/la-sfx-skill",
+  "license": "MIT",
+  "keywords": ["sound-effects", "sfx", "audio", "synthesis", "video", "sound-design", "foley", "ui-sounds"]
+}
