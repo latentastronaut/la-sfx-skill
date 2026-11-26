@@ -31,7 +31,7 @@ Nothing else. Only two commands touch the network (`find` and `fetch`, which loo
 
 ## What it makes
 
-About 70 recipes:
+53 recipes, plus 13 transforms for sounds you already have:
 
 | Kind | Sounds |
 |---|---|
