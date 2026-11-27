@@ -1,4 +1,4 @@
-<img src="assets/icon.png" width="96" alt="sfx">
+<img src="assets/banner.png" alt="SFX: a Claude skill. Sound effects made with code. 53 recipes, 0 audio files, 0 API keys.">
 
 # sfx
 
