@@ -6,6 +6,8 @@ A Claude skill that makes sound effects with code.
 
 You ask for a sound. Claude writes it out as numbers, with numpy and scipy, and puts it on the frame it belongs to. There are no API keys, no AI models and no audio files in here.
 
+**[Watch the video](https://www.youtube.com/watch?v=LUwq2TnbgGo)** (7 minutes): what a sound is made of, how it lands on a frame, and where the skill still fails. Every sound in it was made by the skill.
+
 ```
 /plugin marketplace add latentastronaut/la-sfx-skill
 /plugin install sfx@la-sfx-skill
