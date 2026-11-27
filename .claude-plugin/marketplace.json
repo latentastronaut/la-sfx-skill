@@ -1,7 +1,7 @@
 {
-  "name": "latent-astronaut",
+  "name": "la-sfx-skill",
   "owner": { "name": "Latent Astronaut", "url": "https://github.com/latentastronaut" },
-  "description": "Skills from Latent Astronaut. One so far: sfx, sound effects made with code.",
+  "description": "The sfx skill from Latent Astronaut: sound effects made with code.",
   "plugins": [
     {
       "name": "sfx",

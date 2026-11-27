@@ -8,7 +8,7 @@ You ask for a sound. Claude writes it out as numbers, with numpy and scipy, and 
 
 ```
 /plugin marketplace add latentastronaut/la-sfx-skill
-/plugin install sfx@latent-astronaut
+/plugin install sfx@la-sfx-skill
 ```
 
 Then ask for what you need:
