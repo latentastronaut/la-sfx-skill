@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>sfx: banner, social preview and icon</title>
+<!-- The repo's three pictures, drawn by code. Open with ?v=banner (1680x420), ?v=social (1280x640) or ?v=icon (512x512).
+     README.md in this folder has the export commands. The two fonts are in fonts/ (Anton and Geist Mono, both under the
+     SIL Open Font License; see fonts/OFL.txt), so the page needs no network. Change RECIPES when the skill's count changes. -->
+<style>
+@font-face { font-family: "Anton"; src: url("fonts/Anton-Regular.ttf"); font-weight: 400; }
+@font-face { font-family: "Geist Mono"; src: url("fonts/GeistMono_wght.ttf"); font-weight: 100 900; }
+html, body { margin: 0; background: #0a0a0a } canvas { display: block }
+</style>
+</head><body><canvas id="c"></canvas>
+<script>
+const RECIPES = 53;
+const INK = "#0a0a0a", PAPER = "#ecebe4", GREY = "#85847d", RULE = "#3b3b39", RED = "#ff3d2e", DEEP = "#7a1c14";
+const v = new URLSearchParams(location.search).get("v") || "banner";
+const [W, H] = { banner: [1680, 420], social: [1280, 640], icon: [512, 512] }[v];
+const c = document.getElementById("c"); c.width = W; c.height = H;
+const g = c.getContext("2d");
+
+function mono(text, x, y, size, colour, align = "left") {
+  g.font = `500 ${size}px "Geist Mono"`; g.letterSpacing = `${size * 0.08}px`; g.fillStyle = colour; g.textAlign = align; g.textBaseline = "alphabetic";
+  g.fillText(text, x, y); g.letterSpacing = "0px";
+}
+function headline(text, x, y, size, colour, align = "left", track = 0) {
+  g.font = `400 ${size}px "Anton"`; g.letterSpacing = `${(size * track).toFixed(2)}px`; g.fillStyle = colour; g.textAlign = align; g.textBaseline = "alphabetic";
+  g.fillText(text, x, y); g.letterSpacing = "0px";
+}
+function headlineWidth(text, size) { g.font = `400 ${size}px "Anton"`; g.letterSpacing = `${(size * 0.01).toFixed(2)}px`; const w = g.measureText(text).width; g.letterSpacing = "0px"; return w; }
+
+// The half sun: a solid disc cut by bars that thicken toward the horizon.
+function sun(x, horizon, r) {
+  g.save(); g.beginPath(); g.rect(x - r - 4, horizon - r - 4, 2 * r + 8, r + 4); g.clip();
+  g.fillStyle = RED; g.beginPath(); g.arc(x, horizon, r, 0, 2 * Math.PI); g.fill();
+  g.fillStyle = INK;
+  for (let i = 0; i < 7; i++) { const q = (i + 0.5) / 7, y = horizon - r * 0.62 * Math.pow(1 - q, 1.25), h = r * (0.012 + 0.075 * q); g.fillRect(x - r - 4, y - h / 2, 2 * r + 8, h); }
+  g.restore();
+}
+// The ground: a horizon line, a floor grid and flat contour lines running away to the horizon.
+function ground(sunX, sunR) {
+  const horizon = Math.round(H * 0.861), cx = W / 2, u = H / 1080, base = H + 30 * u, depth = base - horizon, rows = 22;
+  sun(sunX, horizon, sunR);
+  g.fillStyle = INK; g.fillRect(0, horizon, W, base - horizon);
+  g.strokeStyle = DEEP; g.lineWidth = 2 * u; g.beginPath();
+  for (let i = -9; i <= 9; i++) { g.moveTo(cx + i * 26 * u, horizon); g.lineTo(cx + i * 520 * u, base); }
+  g.stroke();
+  g.strokeStyle = RED; g.lineWidth = 3 * u; g.beginPath(); g.moveTo(0, horizon); g.lineTo(W, horizon); g.stroke();
+  for (let k = rows - 1; k >= 0; k--) {
+    const z = k / rows, y = horizon + depth * Math.pow(1 - z, 2.1), half = W * (0.62 + (0.12 - 0.62) * Math.pow(z, 0.7));
+    g.beginPath(); g.moveTo(cx - half, y + 4); g.lineTo(cx - half, y); g.lineTo(cx + half, y); g.lineTo(cx + half, y + 4); g.lineTo(cx + half, base + 40); g.lineTo(cx - half, base + 40); g.closePath();
+    g.fillStyle = INK; g.fill();
+    g.strokeStyle = k === 0 ? RED : `rgba(255,61,46,${(0.85 * Math.pow(1 - z, 1.2) + 0.1).toFixed(3)})`; g.lineWidth = (k === 0 ? 4 : 2.5) * u; g.stroke();
+  }
+}
+function numbers(x, y, size, step) {
+  [`${RECIPES} RECIPES`, "0 AUDIO FILES", "0 API KEYS"].forEach((t, i) => mono(t, x, y + i * step, size, PAPER, "right"));
+}
+
+function banner() {
+  ground(W * 0.6, 210);
+  headline("SFX", 72, 250, 250, RED);
+  mono("A CLAUDE SKILL", 80, 300, 22, PAPER);
+  mono("SOUND EFFECTS MADE WITH CODE", 80, 336, 22, GREY);
+  numbers(W - 72, 110, 22, 36);
+  g.strokeStyle = RULE; g.lineWidth = 2; g.strokeRect(1, 1, W - 2, H - 2);
+}
+function social() {            // everything sits inside a 64 px margin, as GitHub's template asks
+  ground(W * 0.68, 250);
+  mono("LATENT ASTRONAUT", 92, 112, 24, PAPER);
+  headline("SFX", 84, 404, 270, RED);
+  mono("A CLAUDE SKILL", 92, 456, 26, PAPER);
+  mono("SOUND EFFECTS MADE WITH CODE", 92, 496, 26, GREY);
+  numbers(W - 84, 112, 24, 38);
+}
+function icon() {              // the name over a hit: three quiet bars, the strike in red, then its tail
+  const hash = (i, k) => { const s = Math.sin(i * 127.1 + k * 311.7) * 43758.5453; return s - Math.floor(s); };
+  const hit = i => i < 3 ? 0.06 + 0.03 * hash(i, 3) : Math.max(0.05, Math.exp(-(i - 3) * 0.32) * (0.62 + 0.38 * hash(i, 7)));
+  g.fillStyle = INK; g.fillRect(0, 0, W, H);
+  headline("SFX", 256, 300, Math.min(400, 420 / (headlineWidth("SFX", 100) / 100)), RED, "center", 0.01);
+  const n = 13, step = 430 / n;
+  for (let i = 0; i < n; i++) { const h = hit(i) * 130; g.fillStyle = i === 3 ? RED : PAPER; g.fillRect(46 + i * step, 410 - h / 2, step * 0.62, h); }
+}
+
+Promise.all(['400 100px "Anton"', '500 20px "Geist Mono"'].map(f => document.fonts.load(f))).then(() => {
+  g.fillStyle = INK; g.fillRect(0, 0, W, H);
+  ({ banner, social, icon })[v]();
+  document.title = "ready";
+});
+</script></body></html>

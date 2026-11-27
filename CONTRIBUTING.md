@@ -2,6 +2,8 @@
 
 The most useful thing you can send is a recipe for a sound this can't make yet.
 
+Working with a coding agent? [AGENTS.md](AGENTS.md) has the layout, the commands and the rules it should follow.
+
 ## Open problems
 
 These were each tried more than once and failed when a person listened:

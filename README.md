@@ -75,7 +75,8 @@ By ear. The ambiences were fitted to field recordings: measure the recording ban
 - [skills/sfx/SKILL.md](skills/sfx/SKILL.md): what Claude reads.
 - `skills/sfx/scripts/`: the command and the recipes. `skills/sfx/references/`: timing, sound design, where free sounds can be had.
 - `skills/sfx/tests/`: `uv run skills/sfx/tests/test_sfx.py`.
-- [CONTRIBUTING.md](CONTRIBUTING.md), [SECURITY.md](SECURITY.md).
+- `tools/measure/`: the scripts that measured the data files. `assets/src/`: the page that draws the banner and icon.
+- [CONTRIBUTING.md](CONTRIBUTING.md), [AGENTS.md](AGENTS.md) (notes for coding agents), [SECURITY.md](SECURITY.md).
 
 ## Licence
 
