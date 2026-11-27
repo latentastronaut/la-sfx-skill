@@ -1,3 +1,5 @@
+<img src="assets/icon.png" width="96" alt="sfx">
+
 # sfx
 
 A Claude skill that makes sound effects with code.
